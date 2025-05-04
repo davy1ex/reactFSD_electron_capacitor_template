@@ -1,5 +1,71 @@
-node_modules
-dist
-dist-electron
-dist-app
-release
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/dist
+/dist-electron
+/dist-app
+/android/app/build
+/android/.gradle
+/android/local.properties
+/android/capacitor.settings.gradle
+/android/app/capacitor.build.gradle
+/android/app/src/main/assets/public
+/android/app/src/main/assets/capacitor.config.json
+/android/app/src/main/assets/capacitor.plugins.json
+
+# Build outputs
+*.exe
+*.AppImage
+*.deb
+*.dmg
+*.zip
+*.apk
+*.aab
+*.msi
+*.snap
+*.app
+*.dll
+*.so
+*.dylib
+
+# Capacitor
+/android
+/ios
+/www
+
+# Electron
+/release
+/out
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript
+*.tsbuildinfo
