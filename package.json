@@ -1,0 +1,61 @@
+{
+  "name": "react-fsd2-multiplatform",
+  "private": true,
+  "version": "0.0.1",
+  "description": "React FSD2 Multiplatform App",
+  "author": "Your Name",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "electron:tsc": "tsc --project electron/tsconfig.json && mv dist-electron/main.js dist-electron/main.cjs",
+    "electron:dev": "concurrently \"vite\" \"wait-on tcp:5173 && NODE_ENV=development electron dist-electron/main.cjs\"",
+    "electron:build": "npm run electron:tsc && vite build && electron-builder",
+    "cap:add:android": "cap add android",
+    "cap:sync": "cap sync",
+    "cap:open:android": "cap open android"
+  },
+  "build": {
+    "appId": "com.example.react-fsd2-multiplatform",
+    "productName": "React FSD2 Multiplatform",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "public",
+      "output": "release"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"]
+    },
+    "win": {
+      "target": ["nsis"]
+    },
+    "mac": {
+      "target": ["dmg"]
+    }
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/cli": "^5.7.0",
+    "@capacitor/core": "^5.7.0",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.0",
+    "wait-on": "^7.2.0"
+  }
+}
