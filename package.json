@@ -3,16 +3,21 @@
   "private": true,
   "version": "0.0.1",
   "description": "React FSD2 Multiplatform App",
-  "author": "Your Name",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "homepage": "https://github.com/yourusername/react-fsd2-multiplatform",
   "type": "module",
   "main": "dist-electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "electron:tsc": "tsc --project electron/tsconfig.json && mv dist-electron/main.js dist-electron/main.cjs",
+    "electron:tsc": "rm -rf dist-electron && tsc --project electron/tsconfig.json",
     "electron:dev": "concurrently \"vite\" \"wait-on tcp:5173 && NODE_ENV=development electron dist-electron/main.cjs\"",
-    "electron:build": "npm run electron:tsc && vite build && electron-builder",
+    "electron:build": "npm run electron:tsc && vite build && electron-builder --win portable",
+    "electron:build:win": "npm run electron:tsc && vite build && electron-builder --win portable --x64",
     "cap:add:android": "cap add android",
     "cap:sync": "cap sync",
     "cap:open:android": "cap open android"
@@ -28,11 +33,21 @@
       "buildResources": "public",
       "output": "release"
     },
-    "linux": {
-      "target": ["AppImage", "deb"]
-    },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "public/icon.ico",
+      "signingHashAlgorithms": null,
+      "signAndEditExecutable": false
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Development",
+      "maintainer": "Your Name <your.email@example.com>"
     },
     "mac": {
       "target": ["dmg"]

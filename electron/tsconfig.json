@@ -10,7 +10,8 @@
     "rootDir": ".",
     "sourceMap": true,
     "allowJs": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noEmit": false
   },
   "ts-node": {
     "compilerOptions": {
