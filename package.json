@@ -8,16 +8,17 @@
     "email": "your.email@example.com"
   },
   "homepage": "https://github.com/yourusername/react-fsd2-multiplatform",
-  "type": "module",
-  "main": "dist-electron/main.cjs",
+  "main": "./dist-electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "electron:tsc": "rm -rf dist-electron && tsc --project electron/tsconfig.json",
-    "electron:dev": "concurrently \"vite\" \"wait-on tcp:5173 && NODE_ENV=development electron dist-electron/main.cjs\"",
+    "electron:tsc": "if exist dist-electron rmdir /s /q dist-electron && mkdir dist-electron && tsc --project electron/tsconfig.json",
+    "electron:dev": "concurrently \"vite\" \"wait-on tcp:5173 && NODE_ENV=development electron .\"",
     "electron:build": "npm run electron:tsc && vite build && electron-builder --win portable",
     "electron:build:win": "npm run electron:tsc && vite build && electron-builder --win portable --x64",
+    "electron:build:linux": "npm run electron:tsc && vite build && electron-builder --linux AppImage deb",
+    "electron:build:all": "npm run electron:tsc && vite build && electron-builder --win portable --x64 --linux AppImage deb",
     "cap:add:android": "cap add android",
     "cap:sync": "cap sync",
     "cap:open:android": "cap open android"
@@ -31,13 +32,15 @@
     ],
     "directories": {
       "buildResources": "public",
-      "output": "release"
+      "output": "dist-app"
     },
     "win": {
       "target": [
         {
           "target": "portable",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "public/icon.ico",
@@ -45,12 +48,21 @@
       "signAndEditExecutable": false
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "category": "Development",
       "maintainer": "Your Name <your.email@example.com>"
     },
     "mac": {
-      "target": ["dmg"]
+      "target": [
+        "dmg"
+      ]
+    },
+    "asar": true,
+    "extraMetadata": {
+      "main": "./dist-electron/main.js"
     }
   },
   "dependencies": {
@@ -61,13 +73,18 @@
     "@capacitor/android": "^5.7.0",
     "@capacitor/cli": "^5.7.0",
     "@capacitor/core": "^5.7.0",
+    "@electron-forge/cli": "^7.8.0",
+    "@electron-forge/maker-zip": "^7.8.0",
+    "@electron-forge/plugin-vite": "^7.8.0",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vite": "^5.1.0",

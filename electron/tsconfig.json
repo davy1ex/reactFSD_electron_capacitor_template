@@ -11,12 +11,17 @@
     "sourceMap": true,
     "allowJs": true,
     "resolveJsonModule": true,
-    "noEmit": false
+    "noEmit": false,
+    "declaration": false,
+    "removeComments": true,
+    "composite": false,
+    "incremental": false
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
   },
-  "include": ["./**/*.cts"]
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
 } 
