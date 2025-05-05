@@ -13,6 +13,7 @@ A modern template for building cross-platform applications using React, Electron
 - [Getting Started](#getting-started)
 - [Building for Different Platforms](#building-for-different-platforms)
   - [Windows Build](#windows-build)
+    - [Enabling API Requests in Electron](#enabling-api-requests-in-electron)
   - [Linux Build](#linux-build)
   - [Android Build](#android-build)
     - [Running the APK](#running-the-apk)
@@ -34,6 +35,35 @@ A modern template for building cross-platform applications using React, Electron
 ### Windows Development
 - Node.js 16+ (LTS version recommended)
 - Git
+#### Enabling API Requests in Electron
+
+By default, Electron apps have a strict Content Security Policy (CSP) to enhance security. However, to make API requests to external services or allow other domains, you can adjust the CSP header.
+
+If you want to allow API requests (for example, to `https://jsonplaceholder.typicode.com`), follow these steps:
+
+##### Step 1: Modify the `electron/main.ts` file
+
+1. Open the `electron/main.ts` file in your project.
+2. Locate the `session.defaultSession.webRequest.onHeadersReceived` method, which controls the headers of incoming requests.
+3. Modify the `Content-Security-Policy` header to allow the domains you wish to make requests to.
+
+Here is the code you need to add (or modify) in `main.ts`:
+
+```typescript
+// Set security headers to allow API requests
+session.defaultSession.webRequest.onHeadersReceived(
+  (details: any, callback: (response: any) => void) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://jsonplaceholder.typicode.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+        ],
+      },
+    });
+  }
+);
+```
 
 ### Linux Development
 - Node.js 16+ (LTS version recommended)
