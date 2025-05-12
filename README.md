@@ -98,11 +98,48 @@ session.defaultSession.webRequest.onHeadersReceived(
    ```
 
 4. Add Android SDK to your environment:
+on Bash:
    ```bash
    echo 'export ANDROID_HOME=$HOME/Android/Sdk' >> ~/.bashrc
    echo 'export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools' >> ~/.bashrc
    source ~/.bashrc
    ```
+On fish:
+```bash
+nano ~/.config/fish/config.fish
+``` 
+
+and add lines below:
+
+```bash
+set -gx ANDROID_HOME $HOME/Android/Sdk
+set -gx PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin $ANDROID_HOME/platform-tools
+```
+
+and for apply it:
+
+```bash
+source ~/.config/fish/config.fish
+```
+
+For Zsh:
+Edit your .zshrc file:
+```bash
+nano ~/.zshrc
+```
+
+Add the following lines at the end:
+
+```bash
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+```
+
+then run command below for apply it
+
+```bash
+source ~/.zshrc
+```
 
 5. Install required SDK components:
    ```bash
